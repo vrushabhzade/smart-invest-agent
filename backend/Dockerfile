@@ -4,7 +4,7 @@ FROM python:3.11-slim
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV PORT 8080
+ENV PORT 7860
 
 # Set the working directory
 WORKDIR /app
@@ -24,10 +24,10 @@ RUN pip install --upgrade pip && \
 COPY . .
 
 # Expose the port
-EXPOSE 8080
+EXPOSE 7860
 
 # Command to run the application
 # We use uvicorn to serve the FastAPI app
-# --proxy-headers is important for Cloud Run (load balancer)
+# --proxy-headers is important for Cloud Run / HF (load balancer)
 # --forwarded-allow-ips "*" is also recommended
-CMD uvicorn app.main:app --host 0.0.0.0 --port 8080 --proxy-headers --forwarded-allow-ips "*"
+CMD uvicorn app.main:app --host 0.0.0.0 --port 7860 --proxy-headers --forwarded-allow-ips "*"
