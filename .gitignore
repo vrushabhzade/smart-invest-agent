@@ -1,0 +1,45 @@
+# OS and Temp Files
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+venv/
+env/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDEs
+.vscode/
+.idea/
+
+# Build Output
+.next/
+out/
+build/
+dist/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database and Logs
+market_intelligence.db
+error_log.txt
+*.log
+final_error.txt
+pip_error.txt
+pip_out.txt
+
+# Misc
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.agent/
+.gemini/

@@ -1,0 +1,15 @@
+{
+  "name": "smart-invest-agent",
+  "version": "1.0.0",
+  "description": "AI-powered investment intelligence platform",
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && .\\venv\\Scripts\\python.exe -m uvicorn app.main:app --reload --port 8000",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
+    "build": "cd frontend && npm run build",
+    "start": "cd frontend && npm start",
+    "install:all": "cd frontend && npm install && cd ../backend && pip install -r requirements.txt",
+    "db:init": "cd backend && .\\venv\\Scripts\\python.exe -c \"from database.models import init_db; init_db()\""
+  },
+  "private": true
+}
