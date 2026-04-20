@@ -1,7 +1,7 @@
 import yfinance as yf
 import requests
 import pandas as pd
-import pandas_ta as ta
+import ta
 from datetime import datetime
 from typing import List, Dict
 import os
@@ -47,25 +47,29 @@ class MarketDataService:
 
     def calculate_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
         """
-        Add technical indicators using pandas-ta (no C compilation needed)
+        Add technical indicators using ta library
         """
-        df['RSI'] = ta.rsi(df['Close'], length=14)
-        df['MACD'] = ta.macd(df['Close'])['MACD_12_26_9']
-        df['Signal'] = ta.macd(df['Close'])['MACDs_12_26_9']
+        # RSI
+        df['RSI'] = ta.momentum.RSIIndicator(df['Close'], window=14).rsi()
+
+        # MACD
+        macd = ta.trend.MACD(df['Close'])
+        df['MACD'] = macd.macd()
+        df['Signal'] = macd.macd_signal()
 
         # Bollinger Bands
-        bb = ta.bbands(df['Close'], length=20)
-        df['BB_Upper'] = bb['BBU_20_2.0']
-        df['BB_Lower'] = bb['BBL_20_2.0']
-        df['BB_Mid'] = bb['BBM_20_2.0']
+        bb = ta.volatility.BollingerBands(df['Close'], window=20, window_dev=2)
+        df['BB_Upper'] = bb.bollinger_hband()
+        df['BB_Lower'] = bb.bollinger_lband()
+        df['BB_Mid'] = bb.bollinger_mavg()
 
         # Moving averages
-        df['SMA_20'] = ta.sma(df['Close'], length=20)
-        df['SMA_50'] = ta.sma(df['Close'], length=50)
-        df['SMA_200'] = ta.sma(df['Close'], length=200)
+        df['SMA_20'] = ta.trend.SMAIndicator(df['Close'], window=20).sma_indicator()
+        df['SMA_50'] = ta.trend.SMAIndicator(df['Close'], window=50).sma_indicator()
+        df['SMA_200'] = ta.trend.SMAIndicator(df['Close'], window=200).sma_indicator()
 
-        # Volume
-        df['Volume_SMA'] = ta.sma(df['Volume'], length=20)
+        # Volume SMA
+        df['Volume_SMA'] = ta.trend.SMAIndicator(df['Volume'], window=20).sma_indicator()
 
         return df
 

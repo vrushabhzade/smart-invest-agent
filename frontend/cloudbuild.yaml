@@ -1,0 +1,12 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/$PROJECT_ID/smart-invest-frontend:latest'
+      - '--build-arg'
+      - 'NEXT_PUBLIC_API_URL=https://smart-invest-backend-382393355294.us-central1.run.app'
+      - '.'
+images:
+  - 'gcr.io/$PROJECT_ID/smart-invest-frontend:latest'
+timeout: '600s'

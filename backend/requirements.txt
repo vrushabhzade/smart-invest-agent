@@ -12,10 +12,10 @@ psycopg2-binary==2.9.9   # PostgreSQL driver for cloud
 aiosqlite==0.19.0         # SQLite driver for local dev
 
 # Market Data (FREE)
-yfinance==0.2.36
-pandas==2.1.4
-numpy==1.26.3
-pandas-ta==0.3.14b
+yfinance
+pandas
+numpy
+ta
 requests==2.31.0
 
 # NLP (FREE)

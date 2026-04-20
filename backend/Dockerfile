@@ -1,5 +1,5 @@
 # Use the official lightweight Python image.
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -30,4 +30,4 @@ EXPOSE 7860
 # We use uvicorn to serve the FastAPI app
 # --proxy-headers is important for Cloud Run / HF (load balancer)
 # --forwarded-allow-ips "*" is also recommended
-CMD uvicorn app.main:app --host 0.0.0.0 --port 7860 --proxy-headers --forwarded-allow-ips "*"
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000} --proxy-headers --forwarded-allow-ips "*"
